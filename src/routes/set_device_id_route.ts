@@ -68,6 +68,7 @@ export default class SetDeviceIdRoute extends RequestRoute {
         const connectionResult = await connection.add(user.toJson());
         if (!connectionResult.success) {
             this.response.send({
+                status : false,
                 error : 'Database Error',
                 errorMessage : connectionResult.error
             })

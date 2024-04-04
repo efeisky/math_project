@@ -1,6 +1,6 @@
-**Requests**
+# Matematik Projesi
 
-*GET {{main_url}}/getAnalitics*
+### POST {{main_url}}/getAnalitics
 
     Request
     -- "device-id" : "..."
@@ -10,6 +10,7 @@
     -- "user_analytics" : {
         -- "questions" : [
             {
+                --"question-id": "...",
                 --"question-content": "...",
                 --"question-level": int,
                 --"question-subject": "...",
@@ -20,7 +21,6 @@
                 --"D": "...",
                 --"true-answer": int,
                 --"user-choice": int,
-                --"id": int,
                 --"is-did-true": boolean
             }
         ]
@@ -33,13 +33,28 @@
         }
     }
 
-*GET {{main_url}}/setDeviceId*
+**Errors**
+
+    Response
+    -- "status" : false,
+    -- "error" : '...',
+    -- "errorMessage" : "..."
+
+
+### POST {{main_url}}/setDeviceId
 
     Response
     -- "status" : boolean
     -- "created_id" : "..."
+
+**Errors**
+
+    Response
+    -- "status" : false,
+    -- "error" : '...',
+    -- "errorMessage" : "..."
     
-*GET {{main_url}}/createQuestion*
+### POST {{main_url}}/createQuestion
 
     Request
     -- "device-id" : "..."
@@ -48,10 +63,48 @@
     
     Response
     -- "status" : boolean
-***HENÜZ YAPILMADI***   
+    -- "questions" : [
+            {
+                --"question-id": "...",
+                --"question-content": "...",
+                --"question-level": int,
+                --"question-subject": "...",
+                --"question-date": "...",
+                --"A": "...",
+                --"B": "...",
+                --"C": "...",
+                --"D": "...",
+                --"true-answer": int,
+                --"user-choice": int,
+                --"is-did-true": boolean
+            }
+        ]
+    -- "ids" : [..., ..., ..., ..., ...]
 
 **Errors**
 
     Response
+    -- "status" : false,
     -- "error" : '...',
     -- "errorMessage" : "..."
+
+### PUT {{main_url}}/setAfterLesson
+
+    Request
+    -- "device-id" : "..."
+    -- "results": [{
+            -- "question-id": "...",
+            -- "user-choice": int,
+            -- "result": boolean
+        }]
+    
+    Response
+    -- "status" : boolean
+
+**Errors**
+
+    Response
+    -- "status" : false,
+    -- "error" : '...',
+    -- "errorMessage" : "..."
+    
