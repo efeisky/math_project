@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "prestart": "chmod +x node_modules/.bin/ts-node",
     "start": "ts-node src/index.ts",
     "dev": "nodemon --exec ts-node src/index.ts"
   },
