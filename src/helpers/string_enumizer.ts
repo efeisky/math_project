@@ -28,7 +28,9 @@ function UrltoEnum(url : string = '') : RequestUrl {
         
         case 'getAnalitics':
             return RequestUrl.getAnalitics
-        
+
+        case 'setAfterLesson':
+            return RequestUrl.setAfterLesson
         default:
             return RequestUrl.NORMAL
     }

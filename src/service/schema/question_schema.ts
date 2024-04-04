@@ -1,4 +1,8 @@
+import { v4 as uuidv4 } from 'uuid';
+import { QuestionAISchema } from "../../class/question_schemas";
+
 export class QuestionSchema {
+    public questionId: string ;
     public questionSubject: string;
     public questionContent: string;
     public questionLevel: number;
@@ -9,10 +13,10 @@ export class QuestionSchema {
     public D: string;
     public trueAnswer: number;
     public userChoice: number;
-    public id: number = 0;
     public isDidTrue : boolean = false;
 
     constructor() {
+        this.questionId = `question-${uuidv4()}`
         this.questionContent = '';
         this.questionLevel = 0;
         this.questionDate = new Date();
@@ -26,6 +30,9 @@ export class QuestionSchema {
     }
 
     fromJSON(json: { [key: string]: string | number |Date }) {
+        if (json['question-id']) {
+            this.questionId = json['question-id'] as string;
+        }
         if (json['question-content']) {
             this.questionContent = json['question-content'] as string;
         }
@@ -60,6 +67,7 @@ export class QuestionSchema {
     
     toJSON(){
         return {
+            'question-id' : this.questionId,
             'question-content': this.questionContent,
             'question-level': this.questionLevel,
             'question-subject': this.questionSubject,
@@ -70,8 +78,27 @@ export class QuestionSchema {
             'D': this.D,
             'true-answer': this.trueAnswer,
             'user-choice': this.userChoice,
-            'id' : this.id,
             'is-did-true' : this.isDidTrue
         }
+    }
+
+    fromAISchema(schema : QuestionAISchema) : {schema : QuestionSchema, id : string}{
+        var model = new QuestionSchema();
+        var id = `question-${uuidv4()}`
+        model.questionId = id
+        model.questionContent = schema.getContent;
+        model.questionLevel = schema.getLevel;
+        model.questionDate = schema.getDate;
+        model.questionSubject = schema.getSubject;
+        model.A = schema.getA;
+        model.B = schema.getB;
+        model.C = schema.getC;
+        model.D = schema.getD;
+        model.trueAnswer = schema.getTrueAnswer;
+        model.userChoice = schema.getUserChoice;
+        return {
+            schema : model,
+            id
+        };
     }
 }

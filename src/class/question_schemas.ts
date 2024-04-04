@@ -34,6 +34,43 @@ class QuestionRequestBodySchema {
     }
 }
 
+class QuestionAISchema{
+    private questionSubject: string;
+    private questionContent: string;
+    private questionLevel: number;
+    private questionDate: Date;
+    private A: string;
+    private B: string;
+    private C: string;
+    private D: string;
+    private trueAnswer: number;
+    private userChoice: number;
 
+    constructor(data : any, subject : string) {
+        this.questionContent = data['content'];
+        this.questionLevel = data['level'];
+        this.questionDate = new Date();
+        this.questionSubject = subject;
+        this.A = data['a'];
+        this.B = data['b'];
+        this.C = data['c'];
+        this.D = data['d'];
+        this.trueAnswer = data['answer'];
+        this.userChoice = 0;
+    }
 
-export  { QuestionRequestBodySchema};
+    public get getContent() : string {return this.questionContent};
+    public get getSubject() : string {return this.questionSubject};
+    public get getLevel() : number {return this.questionLevel};
+    public get getDate() : Date {return this.questionDate};
+    public get getA() : string {return this.A};
+    public get getB() : string {return this.B};
+    public get getC() : string {return this.C};
+    public get getD() : string {return this.D};
+    public get getUserChoice() : number {return this.userChoice};
+    public get getTrueAnswer() : number {return this.trueAnswer};
+    
+    
+}
+
+export  { QuestionRequestBodySchema, QuestionAISchema};

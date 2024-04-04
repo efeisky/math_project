@@ -68,10 +68,9 @@ export default class GetAnaliticsRoute extends RequestRoute {
             };
         }
 
-        var questionSchemaList: Array<QuestionSchema> = connectionResult.map((item: any, index : number) => {
+        var questionSchemaList: Array<QuestionSchema> = connectionResult.map((item: any) => {
             var questionSchema = new QuestionSchema();
             questionSchema.fromJSON(item);
-            questionSchema.id = index+1
             return questionSchema;
         });
         

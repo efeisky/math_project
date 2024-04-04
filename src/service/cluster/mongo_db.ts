@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { ResultSchema } from '../../class/result_schema';
 
 export class MongoDBConnection {
     private uri: string = "mongodb+srv://efeisky:N9BIai14Pk0968fx@cluster0.dyzgeyl.mongodb.net/?retryWrites=true&w=majority";
@@ -71,5 +72,34 @@ export class MongoDBConnection {
         }
     }
 
+    async updateManyForResult(document: ResultSchema[], id: string): Promise<{ success: boolean}> {
+        
+        const db = this.client.db(this.db_options.name);
+        const collection = db.collection(this.db_options.collection);
+
+        var update_status = true;
+
+        document.map(async(result) => {
+            if (!update_status) {
+                return;
+            }
+            var update = await collection.updateOne(
+                {
+                    device_id: id,
+                    $and: [
+                        { "questions.question-id": result.getID}
+                    ]
+                },
+                { $set: { "questions.$.user-choice": result.getChoice, "questions.$.is-did-true" : result.getResult} }
+            );
+            if (update.modifiedCount != 1) {
+                update_status = false
+            }
+        });
+        
+        return{
+            success : update_status
+        }
+    }
 }
 
