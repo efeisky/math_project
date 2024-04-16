@@ -48,6 +48,7 @@ export class OpenAIConnection {
             })
             content = completion.choices[0].message.content;
         }else{return {model : null,status : false}}
+        console.log(content)
         if (content == null) return {model : null,status : false};
         let checkedContent = await this.checkAndSetContent(content, subject);
         if (checkedContent == null) return {model : null,status : false};
