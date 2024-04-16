@@ -3,8 +3,8 @@ import { AISchema } from "../../class/ai_schemas";
 export class OpenAIConnection {
 
     private openai = new OpenAI({
-        organization: 'org-1QzJUZFHJcGY87UOIFLA3vbs',
-        apiKey : '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'
+        organization: process.env.ORG_ID,
+        apiKey : process.env.API_KEY
       });
 
     
