@@ -40,7 +40,7 @@ export class OpenAIConnection {
             content = `{"status":true,"questions":[{"id":1,"level":2,"content":"Üslü bir sayının tabanı a olup üssü b ise a^b işlemi sonucu kaçtır?","a":"a*b","b":"a+b","c":"a^b","d":"a/b","answer":3},{"id":2,"level":2,"content":"2^3 üssü kaçtır?","a":"4","b":"6","c":"8","d":"10","answer":3},{"id":3,"level":2,"content":"1'in herhangi bir üssü kaçtır?","a":"0","b":"1","c":"2","d":"3","answer":2},{"id":4,"level":2,"content":"3^2 işleminin sonucu kaçtır?","a":"5","b":"6","c":"7","d":"9","answer":4},{"id":5,"level":2,"content":"(-2)^3 işleminin sonucu kaçtır?","a":"-6","b":"-8","c":"-4","d":"8","answer":2},{"id":6,"level":2,"content":"Üslü bir sayının tabanı 5 olup üssü 0 ise sonuç kaçtır?","a":"0","b":"1","c":"5","d":"25","answer":2},{"id":7,"level":2,"content":"2^5 işleminin sonucu kaçtır?","a":"28","b":"32","c":"30","d":"34","answer":2},{"id":8,"level":2,"content":"(-3)^2 işleminin sonucu kaçtır?","a":"5","b":"9","c":"-6","d":"6","answer":2},{"id":9,"level":2,"content":"Üslü bir sayının tabanı 4 olup üssü -2 ise sonuç kaçtır?","a":"16","b":"1/16","c":"8","d":"1/8","answer":2},{"id":10,"level":2,"content":"5^0 işleminin sonucu kaçtır?","a":"0","b":"5","c":"1","d":"25","answer":3}]}`;
         }else if(process.env.APP_STATUS == 'DEPLOY'){
             var completion = await this.openai.chat.completions.create({
-                model : 'gpt-3.5-turbo',
+                model : process.env.OPENAI_VERSION == 'ADVANCED' ? 'gpt-4' : 'gpt-3.5-turbo',
                 messages: [
                     { role: "system", content: this.system_content },
                     { role: "user", content: this.userSubject },
