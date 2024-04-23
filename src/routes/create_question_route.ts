@@ -38,17 +38,17 @@ export default class CreateQuestionRoute extends RequestRoute {
             return;
         };
         let model = this.redesignQuestionList(AIModel.model.questionsListGet)
-        //let deviceId = requestBody.getDeviceID()
+        let deviceId = requestBody.getDeviceID()
 
-        //let db_result = await this.setQuestionsToDB(connection, deviceId, model.question_list);
-        //if (!db_result.success) {
-        //    this.response.send({
-        //        status : false,
-        //        error : 'DB Error',
-        //        errorMessage : 'Sistemsel bir problem meydana geldi.'
-        //    });
-        //    return;
-        //};
+        let db_result = await this.setQuestionsToDB(connection, deviceId, model.question_list);
+        if (!db_result.success) {
+            this.response.send({
+                status : false,
+                error : 'DB Error',
+                errorMessage : 'Sistemsel bir problem meydana geldi.'
+            });
+            return;
+        };
         this.response.send({
             status : true,
             questions : db_result.newList,
@@ -93,8 +93,8 @@ export default class CreateQuestionRoute extends RequestRoute {
             return question.toJSON()
         })
         
-        var result = await connection.addMany(json_list, id)
-        if (!result.success) {return{success: false, error: result.error}}
+        //var result = await connection.addMany(json_list, id)
+        //if (!result.success) {return{success: false, error: result.error}}
         return {
             success : true,
             newList : json_list
