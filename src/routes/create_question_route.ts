@@ -79,7 +79,6 @@ export default class CreateQuestionRoute extends RequestRoute {
     private async connectAI(schema : QuestionRequestBodySchema): Promise<{ success: boolean, model : AISchema | null}>  {
         var subject = `Soru Konusu : ${schema.getContent()}, Soru Zorluk Seviyesi : ${schema.getLevel()}`
         const openai = new OpenAIConnection(subject);
-        console.log(subject)
         var created_model = await openai.create(schema.getContent())
         if (!created_model.status) {return {success : false, model : null}};
         return {
